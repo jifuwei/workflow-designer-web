@@ -1,0 +1,54 @@
+<!-- 
+	/**
+	 * Activiti5 Designer 0.0.1
+	 * 
+	 * Copyright (c) 2014 RanJi All rights reserved.
+	 * 
+	 * This program is free software, and you can follow the Free Software Foundation's GNU General Public License as published by the terms used to modify and redistribute the program. 
+	 * Or a second license, or (at your option) any later version.
+	 * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY. 
+	 * Without even the implied warranty for a particular purpose. More detailed information, please refer to the GNU General Public License.
+	 * You should have received a copy of the GNU General Public License along with the program. If not,
+	 * Visit the WebSite:
+	 *	 Licensed under the GPL license: http://www.gnu.org/licenses/gpl.txt
+	 * 
+	 * To use it on other projects please contact me at jiran1221@163.com
+	 * Thanks for your using. Good Luck!
+	 * 
+	 */
+-->
+
+
+
+
+<html lang="zh">
+	<head>
+		<meta charset="utf-8"/>
+		<!-- saved from url=(0014)about:internet-->
+		<title>Process Designer-RanJi</title>
+		<!-- 采用Pace.js加载进度条 -->
+		<link rel="stylesheet" href="scripts/jquery/plugins/pace/themes/pace-theme-loading-bar.css" />
+		<script>
+			paceOptions = {
+			  elements: true
+			};
+		</script>
+		<script src="scripts/jquery/plugins/pace/pace.min.js"></script>
+		
+		<script src="scripts/jquery/jquery-1.8.3.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="scripts/easyui/themes/gray/easyui.css">
+		<script src="scripts/easyui/jquery.easyui.min.js"></script>	
+	
+		<script type="text/javascript">
+			$(window).load(function(){
+				Pace.stop();
+			});
+        </script>
+	
+	</head>
+	<body class="easyui-layout">
+		<div data-options="region:'center',border:false" style="overflow:hidden">
+			<iframe id="iframe" style="width: 100%; height: 100%;" src="designer/designer.html" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+		</div>
+	</body>
+</html>

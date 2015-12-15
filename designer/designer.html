@@ -1,0 +1,192 @@
+<!-- 
+	/**
+	 * Activiti5 Designer 0.0.1
+	 * 
+	 * Copyright (c) 2014 RanJi All rights reserved.
+	 * 
+	 * This program is free software, and you can follow the Free Software Foundation's GNU General Public License as published by the terms used to modify and redistribute the program. 
+	 * Or a second license, or (at your option) any later version.
+	 * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY. 
+	 * Without even the implied warranty for a particular purpose. More detailed information, please refer to the GNU General Public License.
+	 * You should have received a copy of the GNU General Public License along with the program. If not,
+	 * Visit the WebSite:
+	 *	 Licensed under the GPL license: http://www.gnu.org/licenses/gpl.txt
+	 * 
+	 * To use it on other projects please contact me at jiran1221@163.com
+	 * Thanks for your using. Good Luck!
+	 * 
+	 */
+-->
+
+
+
+<html lang="zh">
+	<head>
+		<meta charset="utf-8"/>
+		<!-- saved from url=(0014)about:internet-->
+		<title>Process Designer-RanJi</title>
+		
+		<link rel="stylesheet" type="text/css" href="../scripts/easyui/themes/gray/easyui.css">
+		<link rel="stylesheet" type="text/css" href="../scripts/easyui/themes/icon.css">
+		<link rel="stylesheet" type="text/css" href="styles/designer.css">
+		
+		<script src="../scripts/jquery/jquery-1.8.3.min.js"></script>
+		<script src="../scripts/jquery/plugins/touchpunch/jquery-touch_punch.js"></script>
+		<script src="../scripts/jquery/plugins/autoresize/jquery.autoresize.js"></script>		
+		<script src="../scripts/jquery/plugins/contextmenu/jquery.contextmenu.js"></script>	
+		<link rel="stylesheet" type="text/css" href="../scripts/jquery/plugins/contextmenu/jquery.contextmenu.css">
+		
+		<script src="../scripts/draw2d/lib/shifty.js"></script>
+		<script src="../scripts/draw2d/lib/raphael.js"></script>
+		<script src="../scripts/draw2d/lib/rgbcolor.js"></script>
+		<script src="../scripts/draw2d/lib/canvg.js"></script>
+		<script src="../scripts/draw2d/lib/Class.js"></script>
+		<script src="../scripts/draw2d/lib/json2.js"></script>
+		<script src="../scripts/draw2d/lib/pathfinding-browser.min.js"></script>
+		
+		
+		<script src="../scripts/draw2d/draw2d.js"></script>		
+		<script src="../scripts/easyui/jquery.easyui.min.js"></script>	
+		
+		<!-- 以下JS为应用的整体布局的JS -->
+		<script src="Application.js"></script>	
+		<script src="canvas/Canvas.js"></script>
+		<script src="accordion/Accordion.js"></script>
+		<script src="toolbar/ToolBar.js"></script>	
+		
+		<!-- 以下JS为各个节点的JS -->
+		<script src="figures/Start.js"></script>	
+		<script src="figures/End.js"></script>	
+		<script src="figures/UserTask.js"></script>
+		<script src="figures/MailTask.js"></script>
+		<script src="figures/ManualTask.js"></script>
+		<script src="figures/ServiceTask.js"></script>
+		<script src="figures/ScriptTask.js"></script>
+		<script src="figures/ExclusiveGateway.js"></script>	
+		<script src="figures/ParallelGateway.js"></script>
+		
+		<script>
+			$(window).load(function(){
+				//-- 2. activiti-designer的连接器(全局)
+		
+			
+				var app = new org.ranji.activiti.Application();
+			
+				
+				app.loadFigure();
+				
+				/*
+				updatePreview(app.canvas);
+				
+				app.canvas.getCommandStack().addEventListener(function(e){
+				  if(e.isPostChangeEvent()){
+					  updatePreview(app.canvas);
+				   }
+				});*/ 
+				
+				
+				displayJSON(app.canvas);
+				// JSON2Canvas(app.canvas);
+				// PNG(app.canvas);
+				
+				app.canvas.getCommandStack().addEventListener(function(e){
+				  if(e.isPostChangeEvent()){
+					  displayJSON(app.canvas);
+				   }
+				}); 
+				
+			});
+			
+			/*
+			function updatePreview(canvas){
+			
+				//-- convert the canvas into a PNG IMage source string
+				var xCoords = [];
+				var yCoords = [];
+				canvas.getFigures().each(function(i,f){
+					var b = f.getBoundingBox();
+					xCoords.push(b.x,b.x+b.w);
+					yCoords.push(b.y,b.y+b.h);
+				});
+				
+				var minX = Math.min.apply(Math,xCoords);
+				var minY = Math.min.apply(Math,yCoords);
+				var width = Math.max.apply(Math,xCoords)-minX;
+				var height = Math.max.apply(Math,yCoords)-minY;
+			
+				var writer = new draw2d.io.png.Writer();
+				writer.marshal(canvas,function(png){
+				   $("#preview").attr("src",png);
+				},new draw2d.geo.Rectangle(minX,minY,width,height));
+			};*/
+			
+			function displayJSON(canvas){
+				//-- test code
+				/*
+				canvas.getFigures().each(function(i,f){
+					console.log(f.NAME);		//-- Node Type
+					console.log(f.getId());		//-- Node ID
+					console.log(f.toXML());		//-- Node Mapped XML
+				});
+				*/
+				//-- test code
+				
+				var writer = new draw2d.io.json.Writer();
+				writer.marshal(canvas,function(json){
+					$("#json").text(JSON.stringify(json, null, 2));
+				});
+			}
+			
+		</script>	
+		
+	</head>
+	<body id="bpm-layout" class="easyui-layout">
+		<div data-options="region:'north',height:36,border:false">
+			<div id="activitiToolBar" class="easyui-panel" border="0" style="padding:5px;background:#E1F0F2">
+				<a href="javascript:void(0)" class="easyui-splitbutton" menu="#edit-menu" iconCls="icon-edit">Edit</a>
+				<div id="edit-menu" style="width:150px;">
+					<div id="undoButton" iconCls="icon-undo" onclick="javascript:void(0)">Undo</div>
+					<div id="redoButton" iconCls="icon-redo" onclick="javascript:void(0)">Redo</div>
+				</div>
+			</div>
+		</div>
+		<div data-options="region:'west',width:150" iconCls="bpm-nav-icon" title="Navigation">
+			<div class="easyui-accordion" fit="true" border="false">
+				<div id="event" title="Event" iconCls="bpm-menu-icon" class="bpm-menu">
+					<a href="##" class="easyui-linkbutton" plain="true" iconCls="start-event-icon" nodeType="Start">Start</a><br>
+					<a href="##" class="easyui-linkbutton" plain="true" iconCls="end-event-icon" nodeType="End">End</a><br>
+				</div>
+				<div id="task" title="Task" iconCls="bpm-menu-icon" selected="true" class="bpm-menu">
+					<a href="#" class="easyui-linkbutton" plain="true" iconCls="user-task-icon" nodeType="UserTask">User Task</a><br>
+					<a href="#" class="easyui-linkbutton" plain="true" iconCls="manual-task-icon" nodeType="ManualTask">Manual Task</a><br>
+					<a href="#" class="easyui-linkbutton" plain="true" iconCls="service-task-icon" nodeType="ServiceTask">Service Task</a><br>
+					<a href="#" class="easyui-linkbutton" plain="true" iconCls="script-task-icon" nodeType="ScriptTask">Script Task</a><br>
+					<a href="#" class="easyui-linkbutton" plain="true" iconCls="mail-task-icon" nodeType="MailTask">Mail Task</a><br>
+					<a href="#" class="easyui-linkbutton" plain="true" iconCls="receive-task-icon" nodeType="ReceiveTask">Receive Task</a><br>
+					<a href="#" class="easyui-linkbutton" plain="true" iconCls="business-rule-task-icon" nodeType="BusinessTask">Business Rule Task</a><br>
+					<a href="#" class="easyui-linkbutton" plain="true" iconCls="subprocess-icon" nodeType="SubProcess">SubProcess</a><br>
+					<a href="#" class="easyui-linkbutton" plain="true" iconCls="callactivity-icon" nodeType="CallActivity">CallActivity</a><br>
+				</div>
+				<div id="gateway" title="Gateway" iconCls="bpm-menu-icon" class="bpm-menu">
+					<a href="##" class="easyui-linkbutton" plain="true" iconCls="parallel-gateway-icon" nodeType="ParallelGateway">ParallelGateway</a><br>
+					<a href="##" class="easyui-linkbutton" plain="true" iconCls="exclusive-gateway-icon" nodeType="ExclusiveGateway">ExclusiveGateway</a><br>
+				</div>
+				<div id="boundary-event" title="Boundary event" iconCls="bpm-menu-icon" class="bpm-menu">
+					<a href="##" class="easyui-linkbutton" plain="true" iconCls="timer-boundary-event-icon" nodeType="TimerBoundaryEvent">TimerBoundaryEvent</a><br>
+					<a href="##" class="easyui-linkbutton" plain="true" iconCls="error-boundary-event-icon" nodeType="ErrorBoundaryEvent">ErrorBoundaryEvent</a><br>
+				</div>
+			</div>
+		</div>
+		<div data-options="region:'center'" title="WorkSpace">
+			<div id="activitiCanvas" style="position:relative;width:2500px;height:2500px;background-image:url(styles/images/grid.png);"></div>
+			<!-- 暂时注释掉预览图的功能
+			<div style="border-radius:5px;overflow:auto;position:absolute; top:30px; right:20px; width:350px; height:250px; border:3px solid gray;background-color:#dceffd;opacity:0.8">
+				<img id="preview" style="width:350px; height:250px;"/>
+			</div> -->
+			
+			<pre id="json" style="border-radius:5px;overflow:auto;position:absolute; top:30px; right:20px; width:350px; height:500px; border:3px solid gray;background-color:#dceffd;opacity:0.8">
+			</pre>
+		</div>
+		<div data-options="region:'east',width:300,collapsed:true" title="Properties"></div>
+	</body>
+</html>

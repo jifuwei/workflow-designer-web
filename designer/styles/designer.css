@@ -1,0 +1,87 @@
+.draggable-model-proxy{
+	background: #e2e2e2;
+	border: 1px solid #666;
+	border-radius: 6px;
+	opacity: 0.7;
+	position: absolute;
+	z-index: 20;
+	filter: alpha(opacity=70);
+}
+
+
+/*控制左面手风琴菜单的样式，覆盖了easyui accordion的部分样式*/
+.accordion .accordion-header .panel-title{
+  font-weight: normal;
+}
+.accordion .accordion-header-selected {
+	background: #f3f3f3;
+}
+.accordion .accordion-header-selected  .bpm-menu-icon{
+	background:  url("icons/tree_folder_open.gif") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+
+.accordion .accordion-header-selected .panel-title { 
+  font-weight: bold;
+  color: #000;
+}
+
+/*左边导航图标*/
+.bpm-nav-icon{
+	background: url("icons/nav.png") no-repeat scroll 0 0 rgba(0,0,0,0);
+}
+.bpm-menu{
+	overflow: auto;
+	padding: 5px;
+}
+.bpm-menu-icon{
+	background:  url("icons/tree_folder_close.gif") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+/*开始事件和结束事件图标*/
+.start-event-icon {
+    background: url("icons/type.startevent.none.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+.end-event-icon {
+    background: url("icons/type.endevent.none.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+/*任务图标*/
+.user-task-icon {
+    background: url("icons/type.user.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+.manual-task-icon {
+    background: url("icons/type.manual.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+.script-task-icon {
+    background: url("icons/type.script.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+.mail-task-icon {
+    background: url("icons/type.send.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+.service-task-icon {
+    background: url("icons/type.service.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+.receive-task-icon {
+    background: url("icons/type.receive.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+.business-rule-task-icon {
+    background: url("icons/type.business.rule.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+.subprocess-icon {
+    background: url("icons/type.subprocess.expanded.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+.callactivity-icon {
+    background: url("icons/callactivity.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+/*网关图标*/
+.parallel-gateway-icon {
+    background: url("icons/type.gateway.parallel.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+.exclusive-gateway-icon {
+    background: url("icons/type.gateway.exclusive.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+/*边界事件图标*/
+.timer-boundary-event-icon {
+    background: url("icons/timer.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+.error-boundary-event-icon {
+    background: url("icons/error.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
